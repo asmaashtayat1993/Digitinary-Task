@@ -10,6 +10,7 @@ Objective :
  Customer Microservice :
  
  Design Decisions
+ 
    1- Architecture
      Manages customer data with operations to create, update, and delete customers
      and store  them in H2 database based  on table relationship with customerOrgnization table and Address table.
