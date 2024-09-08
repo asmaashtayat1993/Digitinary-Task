@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomersService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Digitinary Customer Service</a> &gt; <a href="index.source.html" class="el_package">com.digitinary.customerservice.service</a> &gt; <span class="el_source">CustomersService.java</span></div><h1>CustomersService.java</h1><pre class="source lang-java linenums">package com.digitinary.customerservice.service;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.digitinary.customerservice.entity.CustomerOrgs;
+import com.digitinary.customerservice.entity.Customers;
+import com.digitinary.customerservice.enums.CustomerType;
+import com.digitinary.customerservice.enums.NotificationType;
+import com.digitinary.customerservice.event.CustomerNotificationEvent;
+import com.digitinary.customerservice.event.CustomerPublisher;
+import com.digitinary.customerservice.exception.CustomerNotFoundException;
+import com.digitinary.customerservice.exception.CustomerValidationException;
+import com.digitinary.customerservice.exception.SerializationException;
+import com.digitinary.customerservice.exception.UpdateCustomerException;
+import com.digitinary.customerservice.repository.CustomersRepository;
+import com.digitinary.customerservice.util.JsonUtil;
+
+import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+<span class="fc" id="L27">@Slf4j</span>
+<span class="fc" id="L28">public class CustomersService {</span>
+
+	@Autowired
+	private CustomersRepository customerRepository;
+	@Autowired
+	private CustomerPublisher customerPublisher;
+
+	@Autowired
+	private JsonUtil jsonUtil;
+
+	@Transactional
+	public ResponseEntity&lt;Customers&gt; createCustomer(Customers customer) {
+<span class="fc" id="L40">		log.info(&quot;Start Creating customer: &quot;);</span>
+<span class="fc" id="L41">		validateCustomer(customer);</span>
+		try {
+		
+<span class="fc" id="L44">			Customers savedCustomer = customerRepository.save(customer);</span>
+<span class="fc" id="L45">			log.info(&quot;Customer created successfully:&quot;);</span>
+<span class="fc" id="L46">			publishEvent(NotificationType.CUSTOMER_CREATED, &quot;Customer Created&quot;,</span>
+<span class="fc" id="L47">					&quot;A new customer has been created: &quot; + savedCustomer.getName());</span>
+<span class="fc" id="L48">			 return new ResponseEntity&lt;&gt;(savedCustomer, HttpStatus.CREATED);</span>
+<span class="nc" id="L49">		} catch (CustomerValidationException e) {</span>
+<span class="nc" id="L50">	        log.error(&quot; error: &quot;, e);</span>
+<span class="nc" id="L51">	        return ResponseEntity.badRequest().body(null); </span>
+<span class="nc" id="L52">	    } catch (Exception e) {</span>
+<span class="nc" id="L53">	        log.error(&quot;Unexpected error: &quot;, e);</span>
+<span class="nc" id="L54">	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+	    }
+	}
+
+	private void validateCustomer(Customers customer) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if (customer.getType() == CustomerType.ORGANIZATION) {</span>
+<span class="nc" id="L60">			validateOrganization(customer.getCustomerOrg());</span>
+		}
+<span class="fc" id="L62">	}</span>
+
+	@Transactional
+	public Customers updateCustomer(Long id, Customers customer) {
+
+<span class="fc" id="L67">		log.info(&quot;Updating customer: &quot;);</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">		if (!customerRepository.existsById(id)) {</span>
+<span class="nc" id="L69">			throw new CustomerNotFoundException(&quot;Customer not found with id: &quot; + id);</span>
+		}
+		try {
+<span class="fc" id="L72">			validateCustomer(customer);</span>
+<span class="fc" id="L73">			customer.setId(id);</span>
+<span class="fc" id="L74">			Customers updatedCustomer = customerRepository.save(customer);</span>
+<span class="fc" id="L75">			log.info(&quot;Customer Updatied successfully: &quot;);</span>
+<span class="fc" id="L76">			publishEvent(NotificationType.CUSTOMER_UPDATED, &quot;Customer Updated&quot;,</span>
+<span class="fc" id="L77">					&quot;Customer details updated: &quot; + updatedCustomer.getName());</span>
+
+<span class="fc" id="L79">			return updatedCustomer;</span>
+<span class="nc" id="L80">		}catch (CustomerValidationException e) {</span>
+<span class="nc" id="L81">	        log.error(&quot;error: &quot; + e.getMessage());</span>
+<span class="nc" id="L82">	        throw e;  </span>
+<span class="nc" id="L83">	    } catch (Exception e) {</span>
+<span class="nc" id="L84">	        log.error(&quot;Unexpected error : &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L85">	        throw new UpdateCustomerException(&quot;Failed to update customer due to an unexpected error&quot;);</span>
+	    }
+	}
+
+	@Transactional
+	public void deleteCustomer(Long id) {
+
+<span class="nc" id="L92">		log.info(&quot;Deleting Customer with ID  : &quot; + id);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		if (!customerRepository.existsById(id)) {</span>
+<span class="nc" id="L94">			throw new CustomerNotFoundException(&quot;Customer with id not found : &quot; + id);</span>
+		}
+		try {
+<span class="nc" id="L97">			customerRepository.deleteById(id);</span>
+<span class="nc" id="L98">			log.info(&quot;Customer Deleted successfully&quot;);</span>
+<span class="nc" id="L99">			publishEvent(NotificationType.CUSTOMER_DELETED, &quot;Customer Deleted&quot;,</span>
+					&quot;Customer with ID &quot; + id + &quot; has been deleted.&quot;);
+<span class="nc" id="L101">		} catch (Exception e) {</span>
+<span class="nc" id="L102">			log.error(&quot;Unexpected error : &quot; + e);</span>
+<span class="nc" id="L103">			throw new RuntimeException(&quot;Unexpected error&quot; + e);</span>
+<span class="nc" id="L104">		}</span>
+
+<span class="nc" id="L106">	}</span>
+
+	private void publishEvent(NotificationType type, String title, String message) {
+		try {
+<span class="fc" id="L110">			CustomerNotificationEvent event = new CustomerNotificationEvent(type, title, message, LocalDateTime.now());</span>
+<span class="fc" id="L111">			String json = jsonUtil.convertToJson(event);</span>
+<span class="fc" id="L112">			customerPublisher.sendCustomerEvent(json);</span>
+<span class="fc" id="L113">			log.info(&quot;Event published successfully: {}&quot;, json);</span>
+<span class="nc" id="L114">		} catch (Exception e) {</span>
+<span class="nc" id="L115">			log.error(&quot;Error publishing event: &quot; + e.getMessage());</span>
+<span class="nc" id="L116">			throw new SerializationException(&quot;Failed to serialize and publish event&quot;, e);</span>
+<span class="fc" id="L117">		}</span>
+
+<span class="fc" id="L119">	}</span>
+
+	private void validateOrganization(CustomerOrgs customerOrg) {
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">		if (customerOrg == null) {</span>
+<span class="fc" id="L123">			throw new IllegalArgumentException(</span>
+					&quot;Organization details must be provided for customers of type ORGANIZATION.&quot;);
+		}
+<span class="nc bnc" id="L126" title="All 4 branches missed.">		if (customerOrg.getRegistrationNo() == null || customerOrg.getRegistrationNo().isEmpty()) {</span>
+<span class="nc" id="L127">			throw new IllegalArgumentException(&quot;Registration number must be provided for the organization.&quot;);</span>
+		}
+<span class="nc bnc" id="L129" title="All 4 branches missed.">		if (customerOrg.getLegalName() == null || customerOrg.getLegalName().isEmpty()) {</span>
+<span class="nc" id="L130">			throw new IllegalArgumentException(&quot;Legal name must be provided for the organization.&quot;);</span>
+		}
+<span class="nc bnc" id="L132" title="All 4 branches missed.">		if (customerOrg.getAddresses() == null || customerOrg.getAddresses().isEmpty()) {</span>
+<span class="nc" id="L133">			throw new IllegalArgumentException(&quot;At least one address must be provided for the organization.&quot;);</span>
+		}
+
+<span class="nc" id="L136">	}</span>
+
+	public Customers getCustomerById(Long id) {
+<span class="fc" id="L139">	        return customerRepository.findById(id)</span>
+<span class="fc" id="L140">	                .orElseThrow(() -&gt; new CustomerNotFoundException(&quot;Customer not found with id: &quot; + id));</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

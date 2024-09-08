@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo file="C:\Users\Willson\Desktop\Digitinary-Task\Digitinary Notification Service\target/classes/build-info.properties">project.name=Digitinary Notification Service
+									version=0.0.1
+									build.date=2024-09-08T19:15:35</echo>
+</target>
+</project>

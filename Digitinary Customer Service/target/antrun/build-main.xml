@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo file="C:\Users\Willson\Desktop\Digitinary-Task\Digitinary Customer Service\target/classes/build-info.properties">project.name=Digitinary Customer Service
+                                version=1.0.0
+                                build.date=2024-09-08T19:06:30Z</echo>
+</target>
+</project>

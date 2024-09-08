@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomHealthActuator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Digitinary Customer Service</a> &gt; <a href="index.source.html" class="el_package">com.digitinary.customerservice.config</a> &gt; <span class="el_source">CustomHealthActuator.java</span></div><h1>CustomHealthActuator.java</h1><pre class="source lang-java linenums">package com.digitinary.customerservice.config;
+
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+
+@Component
+<span class="fc" id="L9">public class CustomHealthActuator implements HealthIndicator {</span>
+
+		@Override
+		public Health health() {
+
+<span class="nc" id="L14">			return Health.up()</span>
+<span class="nc" id="L15">					.withDetail(&quot;projectName&quot;, AppConfig.getProjectName())</span>
+<span class="nc" id="L16">					.withDetail(&quot;version&quot;, AppConfig.getVersion())</span>
+<span class="nc" id="L17">					.withDetail(&quot;latestBuildDate&quot;, AppConfig.getBuildDate())</span>
+<span class="nc" id="L18">					.build();</span>
+		}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

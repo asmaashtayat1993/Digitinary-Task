@@ -1,0 +1,5 @@
+com\digitinary\notificationservice\test\NotificationWebSocketHandlerThreadsTest.class
+com\digitinary\notificationservice\test\NotificationControllerTest.class
+com\digitinary\notificationservice\test\NotificationControllerWebSocketTest.class
+com\digitinary\notificationservice\test\NotificationServiceTest.class
+com\digitinary\notificationservice\test\CustomerNotificationListenerTest.class

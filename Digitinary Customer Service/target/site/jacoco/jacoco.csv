@@ -1,0 +1,25 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Digitinary Customer Service,com.digitinary.customerservice.entity,CustomerOrgs,316,3,54,0,8,1,44,1,17,1
+Digitinary Customer Service,com.digitinary.customerservice.entity,Addresses,408,3,70,0,10,1,56,1,21,1
+Digitinary Customer Service,com.digitinary.customerservice.entity,Customers,21,45,0,0,1,8,1,13,1,13
+Digitinary Customer Service,com.digitinary.customerservice.model,NotificationRequest,181,0,30,0,6,0,27,0,12,0
+Digitinary Customer Service,com.digitinary.customerservice.util,JsonUtil,12,15,0,0,3,4,1,1,1,1
+Digitinary Customer Service,com.digitinary.customerservice,CustomerMicroserviceApplication,5,3,0,0,2,1,1,1,1,1
+Digitinary Customer Service,com.digitinary.customerservice.exception,CustomerValidationException,4,0,0,0,2,0,1,0,1,0
+Digitinary Customer Service,com.digitinary.customerservice.exception,ErrorResponse,109,15,16,0,5,3,16,3,8,3
+Digitinary Customer Service,com.digitinary.customerservice.exception,ValidationException,4,0,0,0,2,0,1,0,1,0
+Digitinary Customer Service,com.digitinary.customerservice.exception,UpdateCustomerException,4,0,0,0,2,0,1,0,1,0
+Digitinary Customer Service,com.digitinary.customerservice.exception,SerializationException,5,0,0,0,2,0,1,0,1,0
+Digitinary Customer Service,com.digitinary.customerservice.exception,GlobalExceptionHandler,50,17,0,0,10,3,5,2,5,2
+Digitinary Customer Service,com.digitinary.customerservice.exception,CustomerNotFoundException,0,4,0,0,0,2,0,1,0,1
+Digitinary Customer Service,com.digitinary.customerservice.enums,NotificationType,0,21,0,0,0,4,0,1,0,1
+Digitinary Customer Service,com.digitinary.customerservice.enums,CustomerType,0,15,0,0,0,3,0,1,0,1
+Digitinary Customer Service,com.digitinary.customerservice.controller,CustomersController,11,38,0,0,2,7,1,4,1,4
+Digitinary Customer Service,com.digitinary.customerservice.event,CustomerNotificationEvent,31,15,0,0,6,1,9,1,9,1
+Digitinary Customer Service,com.digitinary.customerservice.event,CustomerPublisher,12,13,0,0,3,5,1,2,1,2
+Digitinary Customer Service,com.digitinary.customerservice.config,CustomHealthActuator,12,3,0,0,5,1,1,1,1,1
+Digitinary Customer Service,com.digitinary.customerservice.config,AppConfig,11,31,1,1,4,9,4,2,3,2
+Digitinary Customer Service,com.digitinary.customerservice.config,RabbitMQConfig,0,38,0,0,0,9,0,6,0,6
+Digitinary Customer Service,com.digitinary.customerservice.config,SwaggerConfig,0,29,0,0,0,10,0,3,0,3
+Digitinary Customer Service,com.digitinary.customerservice.config,LoggingAspect,68,3,4,0,10,1,5,1,3,1
+Digitinary Customer Service,com.digitinary.customerservice.service,CustomersService,195,135,16,4,35,30,10,10,1,9

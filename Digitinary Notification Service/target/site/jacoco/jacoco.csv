@@ -1,0 +1,20 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Digitinary Notification Service,com.digitinary.notificationservice.enums,NotificationType,14,42,2,2,1,7,2,2,0,2
+Digitinary Notification Service,com.digitinary.notificationservice.controller,NotificationController,0,25,0,0,0,5,0,4,0,4
+Digitinary Notification Service,com.digitinary.notificationservice.service,NotificationService,11,38,0,0,3,9,0,4,0,4
+Digitinary Notification Service,com.digitinary.notificationservice.config,AppConfig,11,31,1,1,4,9,4,2,3,2
+Digitinary Notification Service,com.digitinary.notificationservice.config,CustomHealthActuator,12,3,0,0,5,1,1,1,1,1
+Digitinary Notification Service,com.digitinary.notificationservice.config,NotificationWebSocketHandler,86,18,4,0,24,6,8,2,6,2
+Digitinary Notification Service,com.digitinary.notificationservice.config,LoggingAspect,10,7,0,0,4,2,2,2,2,2
+Digitinary Notification Service,com.digitinary.notificationservice.config,WebSocketConfig,0,40,0,0,0,8,0,3,0,3
+Digitinary Notification Service,com.digitinary.notificationservice.config,SwaggerConfig,0,29,0,0,0,10,0,3,0,3
+Digitinary Notification Service,com.digitinary.notificationservice.config,ThreadPoolConfig,0,15,0,0,0,5,0,3,0,3
+Digitinary Notification Service,com.digitinary.notificationservice.config,WebConfig,0,29,0,0,0,6,0,2,0,2
+Digitinary Notification Service,com.digitinary.notificationservice.entity,Notification,198,75,45,1,1,7,26,13,3,13
+Digitinary Notification Service,com.digitinary.notificationservice.event,CustomerNotificationListener,15,79,0,0,4,20,1,6,1,6
+Digitinary Notification Service,com.digitinary.notificationservice.event,CustomerNotificationEvent,88,139,27,11,0,7,20,13,1,13
+Digitinary Notification Service,com.digitinary.notificationservice.model,NotificationRequest,181,0,30,0,6,0,27,0,12,0
+Digitinary Notification Service,com.digitinary.notificationservice.exception,GlobalExceptionHandler,21,3,0,0,3,1,3,1,3,1
+Digitinary Notification Service,com.digitinary.notificationservice.exception,NotificationNotFoundException,4,0,0,0,2,0,1,0,1,0
+Digitinary Notification Service,com.digitinary.notificationservice.exception,NotificationSaveException,5,0,0,0,2,0,1,0,1,0
+Digitinary Notification Service,com.digitinary.notificationservice,NotificationMicroserviceApplication,5,3,0,0,2,1,1,1,1,1

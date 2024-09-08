@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOMP WebSocket Client</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { margin-top: 20px; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>STOMP WebSocket Client</h1>
+    <div id="messages"></div>
+    <button id="sendMessage">Send Test Message</button>
+	<script>
+	    const socket = new SockJS('/ws');
+	    const stompClient = Stomp.over(socket);
+
+		// Connect to the STOMP server
+		        stompClient.connect({}, function (frame) {
+		            console.log('Connected: ' + frame);
+
+		            // Subscribe to the /topic/notifications endpoint for receiving notifications
+		            stompClient.subscribe('/topic/notifications', function (message) {
+		                console.log('Received message: ' + message.body);
+		                // Display the received message in the "messages" div
+		                document.getElementById('messages').innerHTML += `<p>${message.body}</p>`;
+		            });
+		        });
+
+		        // Send a test message to the server when the "Send Test Message" button is clicked
+		        document.getElementById('sendMessage').addEventListener('click', function () {
+					
+		            stompClient.send('/app/send', {}, JSON.stringify({ 'content': ' message sent Successfully' }));
+		        });
+	</script>
+</body>
+</html>
