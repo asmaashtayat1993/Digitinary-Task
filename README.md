@@ -32,8 +32,7 @@ Objective :
 
    4-Validation: 
    
-     API requests are validated to ensure that customer data is correct and meets the required constraints
-   (Ex: If the customer of type Organization, the the org info MUST be filled.)
+     API requests are validated to ensure that customer data is correct and meets the required constraints (Ex: If the customer of type Organization, the the org info MUST be filled.)
 
    5-Documentation: 
    
