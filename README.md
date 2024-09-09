@@ -2,10 +2,13 @@ Objective :
 
   The primary goal of this task is to implement the following two microservices :
   
-  1- Customer Microservice: responsible for the management of organization customers
-  ( handles customer creation, updates, deletions and stores them in an H2 database ) and sends notifications to a RabbitMQ queue.
+  1- Customer Microservice: 
+  responsible for the management of organization customers
+  ( handles customer creation, updates, deletions and stores them in an H2 database ) 
+  and sends notifications to a RabbitMQ queue.
   
-  2- Notification Microservice: responsible for managing notifications,Consumes notifications 
+  2- Notification Microservice: 
+  responsible for managing notifications,Consumes notifications 
   from RabbitMQ, stores them in an H2 database, and broadcasts them to WebSocket  using STOMP.
 
  Customer Microservice :
@@ -21,7 +24,7 @@ Objective :
 
    2-Databasd:
    
-    used H2 In memory database. you check check ot  by 
+    used H2 In memory database. accessible  by 
     (http://localhost:8080/h2-console) 
       with credinatial mentioned in application.prperties file.
 
@@ -93,10 +96,14 @@ Shortcomings:
 
 Assumptions:
 
-WebSocket Clients: Assumes clients use SocketJS or compatible libraries to connect via WebSocket.
+WebSocket Clients:
+Assumes clients use SocketJS or compatible libraries to connect via WebSocket.
 
 Testing :
 
-Customer Microservice: Test customer databse  operations, validation, and RabbitMQ messaging.
-Notification Microservice: Test WebSocket connection management, notification broadcasting, 
+Customer Microservice: 
+Test customer databse  operations, validation, and RabbitMQ messaging.
+
+Notification Microservice:
+Test WebSocket connection management, notification broadcasting, 
 and RabbitMQ event handling. Ensure parallel thread execution for notification dispatch.
